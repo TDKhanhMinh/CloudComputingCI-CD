@@ -70,7 +70,7 @@ public class ListingController {
         }
         return "redirect:/home/home";
     }
-// 
+
     @PostMapping("/address")
     public String listProperties(Model model, HttpSession session,
                                  @RequestParam("location") String location,
@@ -81,8 +81,6 @@ public class ListingController {
                                  @RequestParam("address") String addressInput,
                                  @RequestParam("longitude") String longitude,
                                  @RequestParam("latitude") String latitude) {
-
-
         String fullAddress = "";
         String street="";
 

@@ -21,9 +21,7 @@ public class UserConfig {
 
     @Bean
     public Cloudinary cloudinary(){
-        Dotenv dotenv = Dotenv.load();
-        String cloudinaryUrl = dotenv.get("CLOUDINARY_URL");
-        System.out.println("Cloud URL: " + cloudinaryUrl);
+        String cloudinaryUrl = "cloudinary://424292436519495:LAkXvRDHPGv2Qy2_gQibk5FZIJM@dsj6sba9f";
         return new Cloudinary(cloudinaryUrl);
     }
 

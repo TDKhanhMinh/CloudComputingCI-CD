@@ -39,7 +39,6 @@ public class UserService implements UserDetailsService {
         saveUser.setConfirmPassword(user.getConfirmPassword());
         saveUser.setImages(null);
         saveUser.setRoles(Collections.singletonList(rolesRepository.findRolesByName("ROLE_REALTOR")));
-//        saveUser.setRoles(Collections.singletonList(rolesRepository.findRolesByName("ROLE_ADMIN")));
         saveUser.setPhone(user.getPhone());
         saveUser.setUserPayment(userPayment);
         saveUser.setActive(true);
@@ -53,7 +52,7 @@ public class UserService implements UserDetailsService {
 
     }
     @Transactional
-    public User createAdmin(User user) {
+    public void createAdmin(User user) {
         User saveUser = new User();
         UserPayment userPayment = new UserPayment();
 
@@ -73,14 +72,12 @@ public class UserService implements UserDetailsService {
         int randomNumber = new Random().nextInt(40000000) + 10000000;
         String paymentCode = "T7M" + randomNumber;
         saveUser.setPaymentCode(paymentCode);
-
         userPayment.setUser(saveUser);
         saveUser.setUserPayment(userPayment);
 
         userRepository.save(saveUser);
         userPaymentRepo.save(userPayment);
 
-        return saveUser;
     }
 
     public void save(User user) {

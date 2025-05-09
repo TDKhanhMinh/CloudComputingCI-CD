@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": 1,
+  "Image": {
+    "Name": "354918369080.dkr.ecr.us-east-1.amazonaws.com/khanhminh/realestateweb:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 5000
+    }
+  ]
+}

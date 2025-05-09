@@ -49,14 +49,14 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String dashboard() {
-        return "/admin/dashboard";
+        return "admin/dashboard";
     }
 
     @GetMapping("/users")
     public String user(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("users", userService.getAll());
-        return "/admin/user";
+        return "admin/user";
     }
 
     @GetMapping("/listings")
@@ -73,7 +73,7 @@ public class AdminController {
         property.setAvailable(true);
         propertyService.save(property);
         model.addAttribute("properties", propertyService.caseGetAll(1));
-        return "/admin/listing";
+        return "admin/listing";
     }
     @PostMapping("/denied")
     public String listingDenied(Model model, @RequestParam("id") int id) {
@@ -89,7 +89,7 @@ public class AdminController {
         property.setPropertyStatus("Từ chối");
         propertyService.save(property);
         model.addAttribute("properties", propertyService.caseGetAll(1));
-        return "/admin/listing";
+        return "admin/listing";
     }
     @PostMapping("/deleteListing")
     public String deleteListing(Model model, @RequestParam("id") int id) {
@@ -97,7 +97,7 @@ public class AdminController {
         propertyService.delete(property);
         model.addAttribute("properties", propertyService.caseGetAll(1));
         model.addAttribute("notification", "Listing deleted successfully");
-        return "/admin/listing";
+        return "admin/listing";
     }
     @PostMapping("deleteUser")
     public String deleteUser(Model model, @RequestParam("id") int id) {
@@ -117,7 +117,7 @@ public class AdminController {
         model.addAttribute("users", userService.getAll());
         model.addAttribute("user", new User());
         model.addAttribute("notification", "User deleted successfully");
-        return "/admin/user";
+        return "admin/user";
     }
     @PostMapping("/register")
     public String getRegisterForm(@Valid

@@ -269,7 +269,10 @@
     const cityInput = document.getElementById('city-api');
     const districtInput = document.getElementById('district-api');
     const wardInput = document.getElementById('ward-api');
-    let sessionToken = crypto.randomUUID();
+    // Fix: fallback sessionToken if crypto.randomUUID not available
+    let sessionToken = (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function")
+        ? crypto.randomUUID()
+        : Math.random().toString(36).substring(2) + Date.now().toString(36);
 
 
     function debounce(func, wait) {
