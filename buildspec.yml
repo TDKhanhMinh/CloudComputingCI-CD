@@ -4,29 +4,18 @@ phases:
   install:
     runtime-versions:
       java: corretto17
-
-  pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 354918369080.dkr.ecr.us-east-1.amazonaws.com
-      - REPOSITORY_URI=354918369080.dkr.ecr.us-east-1.amazonaws.com/khanhminh/realestateweb
-      - IMAGE_TAG=latest
-
+      - echo Installing Maven...
+      - mvn install -DskipTests=true
   build:
     commands:
-      - echo Building JAR...
-      - mvn clean install -DskipTests
-      - echo Building Docker image...
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
-
+      - echo Building the application...
+      - mvn package -DskipTests=true
   post_build:
     commands:
-      - echo Pushing Docker image to ECR...
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Creating Dockerrun.aws.json...
-      - >
-        echo "{ \"AWSEBDockerrunVersion\": 1, \"Image\": { \"Name\": \"$REPOSITORY_URI:$IMAGE_TAG\", \"Update\": \"true\" }, \"Ports\": [{ \"ContainerPort\": 5000 }] }" > Dockerrun.aws.json
-
+      - echo Build completed on `date`
+      - ls target/
+      - cp target/Final-0.0.1-SNAPSHOT.jar application.jar
 artifacts:
   files:
-    - Dockerrun.aws.json
+    - application.jar
